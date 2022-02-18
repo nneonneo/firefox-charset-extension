@@ -1,4 +1,5 @@
-[
+/* Adapted from https://encoding.spec.whatwg.org/encodings.json */
+var encodings = [
   {
     "encodings": [
       {

@@ -4,10 +4,7 @@ const selectCharset = document.getElementById("charset");
 const curCharset = document.getElementById("cur-charset");
 
 async function initCharsetSelect() {
-  var response = await fetch("encodings.json");
-  var data = await response.json();
-
-  data.forEach((group) => {
+  encodings.forEach((group) => {
     var optgroup = document.createElement("optgroup");
     optgroup.label = group.heading;
     group.encodings.forEach((encoding) => {
