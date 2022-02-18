@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+<body>
+  <div class="panel-section panel-section-formElements">
+    <div class="panel-formElements-item">
+      <div class="text" id="cur-charset">Current encoding: </div>
+    </div>
+  </div>
+
+  <div class="panel-section-separator"></div>
+
+  <div class="panel-section panel-section-formElements">
+    <div class="panel-formElements-item">
+      <input type="radio" name="mode" value="disable" id="mode-disable" checked />
+      <label for="mode-disable">No override</label>
+    </div>
+
+    <div class="panel-formElements-item">
+      <input type="radio" name="mode" value="enable" id="mode-enable" />
+      <label for="mode-enable">Override for page</label>
+    </div>
+
+    <div class="panel-formElements-item">
+      <label for="charset">Encoding: </label>
+      <select id="charset" name="charset">
+        <option value="_default" selected>Default</option>
+        <option value="_autodetect">Autodetect</option>
+      </select>
+    </div>
+  </div>
+  <script src="common.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>

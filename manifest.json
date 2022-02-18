@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+  "name": "Override Text Encoding",
+  "short_name": "Charset",
+  "version": "1.0",
+
+  "description": "Manually set the charset (character encoding) for a webpage.",
+  "homepage_url": "https://github.com/nneonneo/firefox-charset-extension",
+  "icons": {
+    "48": "icons/extension.svg",
+    "96": "icons/extension.svg"
+  },
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "<all_urls>"
+  ],
+
+  "background": {
+    "scripts": ["common.js", "background.js"]
+  },
+
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "icons/button-dark.svg",
+      "32": "icons/button-dark.svg"
+    },
+    "default_title": "Override Text Encoding",
+    "default_popup": "popup.html",
+    "theme_icons": [{
+      "light": "icons/button-light.svg",
+      "dark": "icons/button-dark.svg",
+      "size": 16
+    }, {
+      "light": "icons/button-light.svg",
+      "dark": "icons/button-dark.svg",
+      "size": 32
+    }]
+  }
+}
