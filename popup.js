@@ -101,6 +101,7 @@ async function onModeDisable() {
   var tab = await getCurrentTab();
   if(tab !== undefined && tab.url !== undefined) {
     await setConfigForPath(tab.url, undefined);
+    await browser.tabs.reload(tab.id, {bypassCache: true});
   }
 }
 
