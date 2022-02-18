@@ -101,7 +101,9 @@ async function onModeDisable() {
   var tab = await getCurrentTab();
   if(tab !== undefined && tab.url !== undefined) {
     await setConfigForPath(tab.url, undefined);
-    await browser.tabs.reload(tab.id, {bypassCache: true});
+    if(await getAutoreloadSetting()) {
+      await browser.tabs.reload(tab.id, {bypassCache: true});
+    }
   }
 }
 
@@ -111,7 +113,9 @@ async function onModeEnable() {
   var config = {charset: charsetSelect.value};
   if(tab !== undefined && tab.url !== undefined) {
     await setConfigForPath(tab.url, config);
-    await browser.tabs.reload(tab.id, {bypassCache: true});
+    if(await getAutoreloadSetting()) {
+      await browser.tabs.reload(tab.id, {bypassCache: true});
+    }
   }
 }
 

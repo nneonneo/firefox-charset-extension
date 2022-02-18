@@ -31,3 +31,12 @@ async function getConfigForURL(urlString) {
 async function setConfigForPath(urlString, config) {
   await setStorage("path-" + urlString, config);
 }
+
+async function getAutoreloadSetting() {
+  const res = await getStorage("setting-autoreload");
+  return (res !== undefined) ? res : true;
+}
+
+async function setAutoreloadSetting(value) {
+  await setStorage("setting-autoreload", value);
+}
