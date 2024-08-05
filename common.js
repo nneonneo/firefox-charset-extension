@@ -40,3 +40,29 @@ async function getAutoreloadSetting() {
 async function setAutoreloadSetting(value) {
   await setStorage("setting-autoreload", value);
 }
+
+async function getIconThemeSetting() {
+  const res = await getStorage("setting-icon-theme");
+  return (res !== undefined) ? res : "default";
+}
+
+async function setIconThemeSetting(value) {
+  await setStorage("setting-icon-theme", value);
+}
+
+async function refreshIconTheme() {
+  let iconTheme = await getIconThemeSetting();
+  if (iconTheme === "default") {
+    await browser.browserAction.setIcon({});
+  } else {
+    let iconPath = `icons/button-${iconTheme}.svg`;
+    await browser.browserAction.setIcon({
+      path: {
+        "16": iconPath,
+        "32": iconPath,
+      }
+    });
+  }
+}
+
+refreshIconTheme();
