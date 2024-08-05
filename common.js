@@ -28,6 +28,21 @@ async function getConfigForURL(urlString) {
   return undefined;
 }
 
+async function getPathSettings() {
+  let result = {};
+  let storage = await browser.storage.local.get();
+  for (const [key, value] of Object.entries(storage)) {
+    if(key.startsWith("path-")) {
+      result[key.substr(5)] = value;
+    }
+  }
+  return result;
+}
+
+async function deleteConfigForPath(urlString) {
+  await browser.storage.local.remove("path-" + urlString);
+}
+
 async function setConfigForPath(urlString, config) {
   await setStorage("path-" + urlString, config);
 }

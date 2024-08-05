@@ -21,13 +21,16 @@
   </head>
 
 <body>
+  <div class="panel-section panel-section-header">
+    <div class="text-section-header">Settings</div>
+  </div>
   <div class="panel-section panel-section-formElements">
     <div class="panel-formElements-item">
+      <label for="auto-reload">Automatically reload when changing encoding:</label>
       <input type="checkbox" name="auto-reload" id="auto-reload" checked />
-      <label for="auto-reload">Automatically reload when changing encoding</label>
     </div>
     <div class="panel-formElements-item">
-      Icon theme:
+      <label>Icon theme:</label>
       <input type="radio" id="icon-theme-default" name="icon-theme" value="default" />
       <label for="icon-theme-default">Default</label>
 
@@ -43,6 +46,20 @@
     <div id="custom-warning" style="display: none; margin-left: 20px;">
       ⚠️ To use custom theme colors on the icon, you must visit about:config and set <tt>svg.context-properties.content.enabled</tt> to <tt>true</tt>. The icon will then use the foreground colour from your active theme.
     </div>
+  </div>
+
+  <div class="panel-section panel-section-header">
+    <div class="text-section-header">Overrides</div>
+  </div>
+
+  <div class="panel-section panel-section-formElements">
+    <table id="path-overrides">
+      <tr>
+        <th>URL</th>
+        <th>Encoding</th>
+        <th>Action</th>
+      </tr>
+    </table>
   </div>
 
   <script src="common.js"></script>
