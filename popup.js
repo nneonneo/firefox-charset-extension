@@ -1,5 +1,6 @@
 const modeDisable = document.getElementById("mode-disable");
-const modeEnable = document.getElementById("mode-enable");
+const modeEnableDomain = document.getElementById("mode-enable-domain");
+const modeEnablePath = document.getElementById("mode-enable-path");
 const selectCharset = document.getElementById("charset");
 const curCharset = document.getElementById("cur-charset");
 
@@ -42,8 +43,9 @@ async function updateCharsetDisplay(tab) {
 }
 
 async function updateConfigDisplay(tab) {
-  modeEnable.disabled = true;
   modeDisable.disabled = true;
+  modeEnableDomain.disabled = true;
+  modeEnablePath.disabled = true;
   selectCharset.disabled = true;
 
   if(tab.url === undefined) {
@@ -56,14 +58,18 @@ async function updateConfigDisplay(tab) {
     return;
   }
 
-  modeEnable.disabled = false;
   modeDisable.disabled = false;
+  modeEnableDomain.disabled = false;
+  modeEnablePath.disabled = false;
   selectCharset.disabled = false;
   if(config === undefined) {
     modeDisable.checked = true;
     selectCharset.value = "_default";
-  } else {
-    modeEnable.checked = true;
+  } else if(config.mode === "domain") {
+    modeEnableDomain.checked = true;
+    selectCharset.value = config.charset;
+  } else if(config.mode === "path") {
+    modeEnablePath.checked = true;
     selectCharset.value = config.charset;
   }
 }
@@ -100,14 +106,28 @@ async function onTabUpdated(tabId, changeInfo, tab) {
 async function onModeDisable() {
   var tab = await getCurrentTab();
   if(tab !== undefined && tab.url !== undefined) {
-    await deleteConfigForPath(tab.url);
+    await setConfigForPath(tab.url, undefined);
+    await setConfigForDomain(tab.url, undefined);
     if(await getAutoreloadSetting()) {
       await browser.tabs.reload(tab.id, {bypassCache: true});
     }
   }
 }
 
-async function onModeEnable() {
+async function onModeEnableDomain() {
+  var tab = await getCurrentTab();
+  var charsetSelect = document.getElementById("charset");
+  var config = {charset: charsetSelect.value};
+  if(tab !== undefined && tab.url !== undefined) {
+    await setConfigForPath(tab.url, undefined);
+    await setConfigForDomain(tab.url, config);
+    if(await getAutoreloadSetting()) {
+      await browser.tabs.reload(tab.id, {bypassCache: true});
+    }
+  }
+}
+
+async function onModeEnablePath() {
   var tab = await getCurrentTab();
   var charsetSelect = document.getElementById("charset");
   var config = {charset: charsetSelect.value};
@@ -120,11 +140,16 @@ async function onModeEnable() {
 }
 
 async function onCharsetChange(event) {
+  if(modeEnableDomain.checked) {
+    await onModeEnableDomain();
+    return;
+  }
+
   if(modeDisable.checked) {
     /* Automatically enable override */
-    modeEnable.checked = true;
+    modeEnablePath.checked = true;
   }
-  await onModeEnable();
+  await onModeEnablePath();
 }
 
 initCharsetSelect();
@@ -134,5 +159,6 @@ browser.tabs.onUpdated.addListener(onTabUpdated, {
   properties: ["status", "url"]
 });
 modeDisable.addEventListener("change", onModeDisable);
-modeEnable.addEventListener("change", onModeEnable);
+modeEnableDomain.addEventListener("change", onModeEnableDomain);
+modeEnablePath.addEventListener("change", onModeEnablePath);
 selectCharset.addEventListener("change", onCharsetChange);
