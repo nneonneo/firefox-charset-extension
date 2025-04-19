@@ -1,7 +1,7 @@
 ## About
 
 Mozilla removed the character encoding menu in Firefox in [Bug #1687635](https://bugzilla.mozilla.org/show_bug.cgi?id=1687635). Since then,
-the only option for fixing a page of mojibake is to hope that "View -> Repair Text Encoding" works - and sometimes it doesn't. As a (somewhat obscure) example,
+the only option for fixing a page of mojibake is to hope that "View -> Repair Text Encoding" works - and sometimes it doesn't. As an example,
 [this x-mac-cyrillic test page](https://hsivonen.com/test/charset/unlabeled-legacy/ru-x-mac-cyrillic.htm), does not display correctly, and the "Repair Text Encoding"
 option is not even available.
 
@@ -13,6 +13,10 @@ removes any charset declaration from the Content-Type HTTP header, which may all
 ## Installation
 
 You can get the addon from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/override-text-encoding).
+
+## Known Issues
+
+This add-on conflicts with the LocalCDN add-on (https://github.com/nneonneo/firefox-charset-extension/issues/4#issuecomment-2816772276), as the LocalCDN add-on rewrites all pages into UTF-8. You will need to disable that add-on on pages where you need to use Override Text Encoding.
 
 ## License
 
