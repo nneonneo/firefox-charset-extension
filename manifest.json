@@ -12,6 +12,12 @@
   },
 
   "browser_specific_settings": {
+    "gecko": {
+      "id": "{eac1b56f-f3a7-40f4-9181-557dd6e63bf3}",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
     "gecko_android": {}
   },
 
