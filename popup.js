@@ -98,8 +98,10 @@ async function onTabActivated(activeInfo) {
 }
 
 async function onTabUpdated(tabId, changeInfo, tab) {
-  if(tabId === currentTabId) {
-    await updatePanelDetails(tab);
+  if (("url" in changeInfo) || ("status" in changeInfo)) {
+    if(tabId === currentTabId) {
+      await updatePanelDetails(tab);
+    }
   }
 }
 
@@ -155,9 +157,7 @@ async function onCharsetChange(event) {
 initCharsetSelect();
 initPanelDetails();
 browser.tabs.onActivated.addListener(onTabActivated);
-browser.tabs.onUpdated.addListener(onTabUpdated, {
-  properties: ["status", "url"]
-});
+browser.tabs.onUpdated.addListener(onTabUpdated);
 modeDisable.addEventListener("change", onModeDisable);
 modeEnableDomain.addEventListener("change", onModeEnableDomain);
 modeEnablePath.addEventListener("change", onModeEnablePath);
